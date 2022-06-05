@@ -20,11 +20,11 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="/">Inicio</a>
-                <a class="btn" href="cursos">Cursos</a>
-                <a class="btn" href="profesores">Profesores</a>
-                <a class="btn" href="estudiantes">Estudiantes</a>
-                <a class="btn" href="entregables">Entregables</a>
+                <a class="navbar-brand" href="{% url 'Inicio' %}">Inicio</a>
+                <a class="btn" href="{% url 'Cursos' %}">Cursos</a>
+                <a class="btn" href="{% url 'Profesores' %}">Profesores</a>
+                <a class="btn" href="{% url 'Estudiantes' %}">Estudiantes</a>
+                <a class="btn" href="{% url 'Entregables' %}">Entregables</a>
                 <a class="btn btn-primary" href="#signup">Sign In</a>
             </div>
         </nav>
@@ -36,6 +36,8 @@
                         <div class="text-center text-white">
                             <!-- Page heading-->
                             <h1 class="mb-5">Nuestra web Django!</h1>
+                            {% block section_name %}
+                            {% endblock %}
                         </div>
                     </div>
                 </div>
