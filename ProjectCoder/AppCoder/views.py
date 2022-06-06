@@ -69,4 +69,7 @@ def busqueda(request):
     if request.GET['camada']:
         camada = request.GET['camada']
         cursos = Curso.objects.filter(camada == camada)
+        return render(request, 'AppCoder/resultadosBusqueda.html', {'cursos': cursos, 'camada': camada})
+    else:
+        respuesta = "No se ha ingresado ninguna comision"
     return HttpResponse(respuesta)
