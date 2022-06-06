@@ -1,0 +1,17 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+
+{% block contenidoQueCambia %}
+<form action="{% url 'ProfeFormulario' %}" method="POST">{% csrf_token %}
+    <h1>Inserte los datos del curso</h1>
+    <table>
+        {{miFormulario.as_table}}
+    </table>
+    <input type="submit" value="Enviar formulario API">
+</form>
+
+{% endblock %}
+
+{% block section_name %}
+<h3>Formulario para profesores</h3>
+{% endblock %}
