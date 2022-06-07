@@ -42,6 +42,29 @@ def cursoFormulario(request):
     return render(request, 'AppCoder/cursoFormulario.html', {"miFormulario":miFormulario})
 
 
+def busquedaCamada(request):
+    return render(request, 'AppCoder/busquedaCamada.html')
+
+def busqueda(request):
+    # respuesta = f"Estoy buscando la comision {request.GET['camada']}"
+    if request.GET['camada']:
+        camada = request.GET['camada']
+        cursos = Curso.objects.filter(camada=camada)
+        return render(request, 'AppCoder/resultadosBusqueda.html', {'cursos': cursos, 'camada': camada})
+    else:
+        respuesta = "No se ha ingresado ninguna comision"
+    return HttpResponse(respuesta)
+
+
+#CRUD read profesores
+def leerProfesores(request):
+    profesores = Profesor.objects.all()   
+    contexto = {'profesores': profesores}
+    
+
+    return render(request, "AppCoder/profesores.html", contexto)
+
+#CRUD create profesores
 def profesorFormulario(request):
     if request.method == 'POST':
         miFormulario = ProfesorFormulario(request.POST)
@@ -60,23 +83,3 @@ def profesorFormulario(request):
         miFormulario = ProfesorFormulario()
 
     return render(request, 'AppCoder/profesorFormulario.html', {"miFormulario":miFormulario})
-
-def busquedaCamada(request):
-    return render(request, 'AppCoder/busquedaCamada.html')
-
-def busqueda(request):
-    # respuesta = f"Estoy buscando la comision {request.GET['camada']}"
-    if request.GET['camada']:
-        camada = request.GET['camada']
-        cursos = Curso.objects.filter(camada=camada)
-        return render(request, 'AppCoder/resultadosBusqueda.html', {'cursos': cursos, 'camada': camada})
-    else:
-        respuesta = "No se ha ingresado ninguna comision"
-    return HttpResponse(respuesta)
-
-def leerProfesores(request):
-    profesores = Profesor.objects.all()   
-    contexto = {'profesores': profesores}
-    
-
-    return render(request, "AppCoder/profesores.html", contexto)
