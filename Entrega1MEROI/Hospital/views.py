@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
+from Hospital.models import Paciente, Profesional, Asistente
 
 from Hospital.forms import PacienteFormulario, ProfesionalFormulario, AsistenteFormulario
 
@@ -34,7 +35,7 @@ def pacienteFormulario(request):
             apellido = informacion['apellido']
             dni = informacion['dni']
             email = informacion['email']
-            paciente = paciente(nombre=nombre, apellido=apellido, dni = dni, email=email)
+            paciente = Paciente(nombre=nombre, apellido=apellido, dni = dni, email=email)
             paciente.save()
             return render(request, 'Hospital/inicio.html')
     else:
@@ -54,8 +55,8 @@ def profesionalFormulario(request):
             especialidad = informacion['especialidad']
             matricula = informacion['matricula']
             email = informacion['email']
-            paciente = paciente(nombre=nombre, apellido=apellido, especialidad = especialidad, matricula = matricula ,email=email)
-            paciente.save()
+            profesional = Profesional(nombre=nombre, apellido=apellido, especialidad = especialidad, matricula = matricula ,email=email)
+            profesional.save()
             return render(request, 'Hospital/inicio.html')
     else:
         miFormulario = ProfesionalFormulario()
@@ -73,10 +74,25 @@ def asistenteFormulario(request):
             apellido = informacion['apellido']
             nempleado = informacion['nempleado']
             email = informacion['email']
-            paciente = paciente(nombre=nombre, apellido=apellido, nempleado = nempleado ,email=email)
-            paciente.save()
+            asistente = Asistente(nombre=nombre, apellido=apellido, nempleado = nempleado ,email=email)
+            asistente.save()
             return render(request, 'Hospital/inicio.html')
     else:
         miFormulario = AsistenteFormulario()
 
     return render(request, 'Hospital/asistenteFormulario.html', {"miFormulario":miFormulario})
+
+
+#----------------------------------------------------------------
+# BUSQUEDA DE PACIENTE POR DNI
+def busquedaPaciente(request):
+    return render(request, 'Hospital/busquedaPaciente.html')
+
+def busqueda(request):
+    if request.GET['dni']:
+        dni = request.GET['dni']
+        pacientes = Paciente.objects.filter(dni=dni)
+        return render(request, 'Hospital/resultadosBusqueda.html', {'pacientes': pacientes, 'dni': dni})
+    else:
+        respuesta = "No se ha ingresado ningun dni"
+    return HttpResponse(respuesta)

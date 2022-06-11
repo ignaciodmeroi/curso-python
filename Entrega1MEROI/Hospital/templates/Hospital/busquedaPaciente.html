@@ -1,0 +1,15 @@
+{% extends "Hospital/padre.html" %}
+{% load static %}
+
+{% block contenidoQueCambia %}
+<form action="{% url 'Busqueda' %}" method="GET">
+    <h1>Buscador de camada</h1>
+    <input type="number" name="dni" placeholder="DNI" id="dni">
+    <input type="submit" value="Buscar">
+</form>
+
+{% endblock %}
+
+{% block section_name %}
+<h3>Formulario para busqueda por paciente</h3>
+{% endblock %}

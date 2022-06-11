@@ -1,0 +1,17 @@
+{% extends "Hospital/padre.html" %}
+{% load static %}
+
+{% block contenidoQueCambia %}
+<form action="{% url 'ProfesionalFormulario' %}" method="POST">{% csrf_token %}
+    <h1>Inserte los datos del profesional</h1>
+    <table>
+        {{miFormulario.as_table}}
+    </table>
+    <input type="submit" value="Guardar Profesional">
+</form>
+
+{% endblock %}
+
+{% block section_name %}
+<h3>Formulario de Profesionales</h3>
+{% endblock %}

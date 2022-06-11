@@ -1,0 +1,23 @@
+{% extends "Hospital/padre.html" %}
+{% load static %}
+
+{% block contenidoQueCambia %}
+    <h1>Estamos buscando a el paciente con dni {{dni}}</h1>
+    {% if pacientes  %}
+    <ul>
+        {% for pacientes in pacientes %}
+        <li>{{pacientes.nombre}}</li>
+        <li>{{pacientes.apellido}}</li>
+        <li>{{pacientes.dni}}</li>
+        <li>{{pacientes.email}}</li>
+        <br>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</form>
+
+{% endblock %}
+
+{% block section_name %}
+<h3>Resultado de su busqueda</h3>
+{% endblock %} 
