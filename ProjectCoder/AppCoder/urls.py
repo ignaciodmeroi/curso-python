@@ -14,6 +14,7 @@ urlpatterns = [
     path('profeform', profesorFormulario,name='ProfeFormulario'),
     path('busquedacamada', busquedaCamada,name='BusquedaCamada'),
     path('busqueda', busqueda, name='Busqueda'),
+    #---------------------------------
     path('profesores', leerProfesores, name='Profesores'),
     path('eliminarProfesor/<nombre>', eliminarProfesor, name='EliminarProfesor'),
     path('editarProfesor/<profesor_nombre>', editarProfesor, name='EditarProfesor'),

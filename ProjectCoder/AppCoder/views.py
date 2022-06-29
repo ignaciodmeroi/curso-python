@@ -128,18 +128,18 @@ class EstudiantesList(ListView):
 #DETAILVIEW 
 class EstudianteDetail(DetailView):
     model = Estudiantes 
-    template_name = 'AppCoder/estudianteDetalle.html'
+    template_name = 'AppCoder/estudiante_detalle.html'
 
 class EstudianteCreacion(CreateView):
     model = Estudiantes 
-    success_url = reverse_lazy('estudiantes')
+    success_url = reverse_lazy('Estudiante_list')
     fields = ['nombre', 'apellido', 'email']
 
 class EstudianteEdicion(UpdateView):
     model = Estudiantes 
-    success_url = reverse_lazy('estudiantes')
+    success_url = reverse_lazy('Estudiante_list')
     fields = ['nombre', 'apellido', 'email']
 
 class EstudianteEliminacion(DeleteView):
     model = Estudiantes 
-    success_url = reverse_lazy('estudiantes')
+    success_url = reverse_lazy('Estudiante_list')
