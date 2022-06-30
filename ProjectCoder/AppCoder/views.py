@@ -7,6 +7,8 @@ from AppCoder.forms import CursoFormulario, ProfesorFormulario
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy 
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, authenticate, logout
 # Create your views here.
 def inicio (self):
     plantilla = loader.get_template('AppCoder/inicio.html')
@@ -143,3 +145,40 @@ class EstudianteEdicion(UpdateView):
 class EstudianteEliminacion(DeleteView):
     model = Estudiantes 
     success_url = reverse_lazy('Estudiante_list')
+
+#----------------------------------------------------------------
+#Funcion solo si el user esta ya registrado desde el panel de administacion. 
+def login_request(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            usuario = form.cleaned_data.get('username')
+            clave = form.cleaned_data.get('password')
+            #Autenticacion del usuario
+            user = authenticate(username=usuario, password=clave)
+            if user is not None:
+                login(request, user)
+                return render(request, 'AppCoder/inicio.html', {'mensaje': f'Bienvenido {usuario}'})
+            else:
+                return render(request, 'AppCoder/inicio.html', {'mensaje': 'Datos incorrectos'})
+        else: 
+            return render(request, 'AppCoder/inicio.html', {'mensaje': 'Error, formulario invalido'})
+    else:
+        form = AuthenticationForm()
+        return render(request, 'AppCoder/login.html', {'form': form})
+
+#----------------------------------------------------------------
+#Registro de un nuevo usuario. 
+
+def register_request(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            form.save()
+            return render(request, 'AppCoder/inicio.html', {'mensaje': f'Usuario {username} creado'})
+        else:
+           return render(request, 'AppCoder/inicio.html', {'mensaje': 'Error, no se pudo crear el usuario'}) 
+    else:
+        form = UserCreationForm()
+        return render(request, 'AppCoder/register.html', {'form':form})
